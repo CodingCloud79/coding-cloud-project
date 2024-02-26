@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947097206463",
+    "project_id": "coding-cloud-73fd4",
+    "storage_bucket": "coding-cloud-73fd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947097206463:android:0c89f0f899d43fdb8f500a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlpri3QMEMCpBoPNIp5ov4B_VdRnuuPNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
