@@ -150,15 +150,6 @@ class _VerifyOTPState extends State<VerifyOTP> {
                         // Future.delayed(Duration(milliseconds: 900), () {
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);
-                        // });
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        // builder: (context) => RegisterUser(
-                        //   phoneNumber: widget.phoneNum,
-                        // ),
-                        //   ),
-                        // );
                         Navigator.push(
                           context,
                           PageRouteBuilder(
