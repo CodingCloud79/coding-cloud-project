@@ -147,31 +147,14 @@ class _VerifyOTPState extends State<VerifyOTP> {
                           smsCode: _otpController.text,
                         );
                         await _auth.signInWithCredential(credential);
-                        // Future.delayed(Duration(milliseconds: 900), () {
-                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                         Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => RegisterUser(
-                              phoneNumber: widget.phoneNum,
-                            ),
-                            transitionDuration:
-                                const Duration(milliseconds: 1000),
-                            transitionsBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation,
-                                Widget child) {
-                              return SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(0.0, 1.0),
-                                  end:  const Offset(0.0, 0.0),
-                                ).animate(animation),
-                                child: child,
-                              );
-                            },
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RegisterUser(
+                                phoneNumber: widget.phoneNum,
+                              ),
+                            ));
                         _otpController.clear();
                       } catch (e) {
                         showDialog<String>(
