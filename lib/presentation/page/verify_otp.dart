@@ -147,8 +147,6 @@ class _VerifyOTPState extends State<VerifyOTP> {
                           smsCode: _otpController.text,
                         );
                         await _auth.signInWithCredential(credential);
-                        // Future.delayed(Duration(milliseconds: 900), () {
-                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                         Navigator.push(
                             context,

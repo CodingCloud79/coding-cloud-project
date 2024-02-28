@@ -78,6 +78,7 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
           GestureDetector(
             onTap: () {},
             child: _buildCard("My Earning"),
+            
           ),
           GestureDetector(
             onTap: () {
@@ -94,10 +95,10 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
     return Animate(
       effects: [ScaleEffect(duration: Duration(milliseconds: 500))],
       child: Container(
-        height: 80,
-        width: 120,
+        height: 100,
+        width: 100,
         decoration: BoxDecoration(
-            color: Colors.blueAccent, borderRadius: BorderRadius.circular(10)),
+            color: Color(0xFF629AB5), borderRadius: BorderRadius.circular(60)),
         child: Center(
             child: Text(
           title,
@@ -144,6 +145,7 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.grey[200],
+        
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,8 +171,8 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
 
   Widget _buildContributor() {
     return Container(
-      height: 40,
-      width: 40,
+      height: 60,
+      width: 60,
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.grey[400],
@@ -178,7 +180,7 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
       ),
       child: const Icon(
         Icons.person,
-        size: 32,
+        size: 48,
         color: Colors.grey,
       ),
     );
@@ -191,3 +193,5 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
     });
   }
 }
+
+

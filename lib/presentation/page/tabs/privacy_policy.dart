@@ -10,6 +10,11 @@ class PrivacyPolicy extends StatefulWidget {
 class _PrivacyPolicyState extends State<PrivacyPolicy> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Privacy Policy"),),);
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Text("Privacy Policy"),
+      ),
+    );
   }
 }

@@ -64,6 +64,7 @@ bool isValidName(String name) {
   return nameRegex.hasMatch(name);
 }
 
+
 Widget tff(
   String hinttext,
   TextInputType keyboardtype,
@@ -94,6 +95,7 @@ Widget tff(
             return " Name Should Contain Alphabets Only ";
           }
         }
+        
       }
       return null;
     },

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_application_1/presentation/page/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'verify_otp.dart';
 
@@ -30,7 +31,11 @@ class _PhoneScreenState extends State<PhoneScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Animate(
-          effects: const [SlideEffect(duration: Duration(milliseconds: 500) , ) ],
+          effects: const [
+            SlideEffect(
+              duration: Duration(milliseconds: 500),
+            )
+          ],
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -50,7 +55,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                 ),
                 Image.asset('assets/images/OTP_img.png'),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Text(
                   "Enter Your Mobile Number",
@@ -60,7 +65,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 0,
                 ),
                 Text(
                   "We will send you the 6 digit verification code ",
@@ -158,6 +163,28 @@ class _PhoneScreenState extends State<PhoneScreen> {
                             ),
                           ),
                         ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Divider(
+                            height: 1,
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an Account ? "),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()));
+                                },
+                                child: Text("Login "))
+                          ],
+                        )
                       ],
                     ),
                   ),

@@ -53,6 +53,7 @@ class _RegisterUserState extends State<RegisterUser> {
   final TextEditingController _educationController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _referralId = TextEditingController();
+  final TextEditingController _passwordController= TextEditingController();
   String? _selectedEducation = education.first;
   String? _selectedPassOutYear = years.first;
   String? profileUrl;
@@ -94,7 +95,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       ),
                       heading(24, "Activate You Membership  ", FontWeight.w400),
                       const SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       _selectPassportPhoto(),
                       const SizedBox(
@@ -103,7 +104,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       tff("Name", TextInputType.name, _nameController, "Name",
                           "Please Enter Name "),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,17 +139,22 @@ class _RegisterUserState extends State<RegisterUser> {
                         ],
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       tff("Email", TextInputType.emailAddress, _emailController,
                           "Email", "Enter Correct Email "),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       tff("City", TextInputType.streetAddress, _cityController,
                           "City", " Enter City "),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
+                      ),
+                      tff("Password", TextInputType.visiblePassword, _passwordController,
+                          "Password", " Enter password "),
+                      const SizedBox(
+                        height: 15,
                       ),
                       TextFormField(
                         controller: _referralId,
@@ -333,26 +339,38 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   Future<void> uploadData(String url, String uuid) async {
+    // Setting Shared Preferences
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     _prefs.setString('name', _nameController.text);
     _prefs.setString('uuid', uuid);
     _prefs.setString('phone', phoneNum);
     _prefs.setString('profileUrl', url);
-    QuerySnapshot snapshotS = await FirebaseFirestore.instance
-        .collection('users')
-        .where('uuid', isEqualTo: _referralId.text)
-        .get();
-    var userDocId = snapshotS.docs[0].id;
-    print(userDocId);
-    var collection =
-        FirebaseFirestore.instance.collection('users').doc(userDocId);
-    var data = await collection.get();
-    FirebaseFirestore.instance.collection('users/$userDocId/refferedTo').add({
-      'uuid': uuid,
-      'name': _nameController.text,
-      'phone': phoneNum,
-    });
-    print(data.data());
+    _prefs.setBool('loggedIn', true);
+    debugPrint("Logged In");
+
+    if (_referralId.text == "") {
+      debugPrint("No Refferal");
+    } else {
+      // Getting the Document id of user who's refferal code is entered
+      QuerySnapshot snapshotS = await FirebaseFirestore.instance
+          .collection('users')
+          .where('uuid', isEqualTo: _referralId.text)
+          .get();
+      var userDocId = snapshotS.docs[0].id;
+      print(userDocId);
+
+      var collection =
+          FirebaseFirestore.instance.collection('users').doc(userDocId);
+      var data = await collection.get();
+      FirebaseFirestore.instance.collection('users/$userDocId/refferedTo').add({
+        'uuid': uuid,
+        'name': _nameController.text,
+        'phone': phoneNum,
+        'profileUrl': url
+      });
+      print(data.data());
+    }
+
     FirebaseFirestore.instance.collection('users').add({
       'name': _nameController.text,
       'education': _selectedEducation,
@@ -363,6 +381,7 @@ class _RegisterUserState extends State<RegisterUser> {
       'profileUrl': url,
       'uuid': uuid,
       'refferedBy': _referralId.text,
+      'password': _passwordController.text,
     });
     Navigator.pop(context);
     Navigator.push(
