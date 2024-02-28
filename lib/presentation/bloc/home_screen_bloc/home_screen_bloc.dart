@@ -17,8 +17,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<NavigateToPrivacyPolicyEvent>(navigateToPrivacyPolicyEvent);
     on<NavigateToRewardPointsEvent>(navigateToRewardPointsEvent);
     on<NavigateToWithdrawlsEvent>(navigateToWithdrawlsEvent);
+    on<NavigateToMyCoursesEvent>(navigateToMyCoursesEvent);
   }
-
   FutureOr<void> navigateToHomeTabEvent(
       NavigateToHomeTabEvent event, Emitter<HomeScreenState> emit) {
     emit(NavigateToHomeTabState());
@@ -45,16 +45,33 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   FutureOr<void> navigateToMyProfileEvent(
       NavigateToMyProfileEvent event, Emitter<HomeScreenState> emit) {
-        emit(NavigateToMyProfileTabState());
-            debugPrint(" Bloc : NavigateToMyProfileTabState ");
-      }
+    emit(NavigateToMyProfileState());
+    debugPrint(" Bloc : NavigateToMyProfileState ");
+  }
 
   FutureOr<void> navigateToMyContactsTabEvent(
-      NavigateToMyContactsTabEvent event, Emitter<HomeScreenState> emit) {}
+      NavigateToMyContactsTabEvent event, Emitter<HomeScreenState> emit) {
+    debugPrint(" Bloc : NavigateToMyContactsTabEvent  ");
+    emit(NavigateToMyContactsTabState());
+  }
 
   FutureOr<void> navigateToEarnTabEvent(
-      NavigateToEarnTabEvent event, Emitter<HomeScreenState> emit) {}
+      NavigateToEarnTabEvent event, Emitter<HomeScreenState> emit) {
+    debugPrint(" Bloc : NavigateToEarnTabEvent ");
+    emit(NavigateToEarnTabState());
+
+  }
 
   FutureOr<void> navigateToLearnTabEvent(
-      NavigateToLearnTabEvent event, Emitter<HomeScreenState> emit) {}
+      NavigateToLearnTabEvent event, Emitter<HomeScreenState> emit) {
+    debugPrint(" Bloc : NavigateToLearnTabEvent ");
+    emit(NavigateToLearnTabState());
+
+  }
+
+  FutureOr<void> navigateToMyCoursesEvent(
+      NavigateToMyCoursesEvent event, Emitter<HomeScreenState> emit) {
+    debugPrint(" Bloc : NavigateToMyCoursesEvent ");
+    emit(NavigateToMyCoursesState());
+  }
 }

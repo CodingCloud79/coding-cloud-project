@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/page/enter_phone_screen.dart';
 import 'package:flutter_application_1/presentation/page/home_screen.dart';
+import 'package:flutter_application_1/presentation/page/register_user.dart';
 import 'package:lottie/lottie.dart';
 
 import 'activate_membership.dart';
@@ -25,28 +26,9 @@ class _SplshScreenState extends State<SplshScreen> {
         Navigator.pop(context);
         Navigator.push(
           context,
-          // MaterialPageRoute(
-
-          //   builder: (context) => const PhoneScreen(),
-          //   // builder: (context) => const ActivateMembership(),
-          //   // builder: (context) => const HomeScreen(),
-          //   // builder: (context) => const RegisterUser(phoneNumber: '',),
-          // ),
           PageRouteBuilder(
             pageBuilder: (_, __, ___) => const PhoneScreen(),
             transitionDuration: const Duration(milliseconds:1500 ),
-            // transitionsBuilder: (BuildContext context,
-            //     Animation<double> animation,
-            //     Animation<double> secondaryAnimation,
-            //     Widget child) {
-            //   return SlideTransition(
-            //     position: Tween<Offset>(
-            //       begin: const Offset(1.0, 0.0),
-            //       end: Offset.zero,
-            //     ).animate(animation),
-            //     child: child,
-            //   );
-            // },
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),
           ),

@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/presentation/page/activate_membership.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +52,7 @@ class _RegisterUserState extends State<RegisterUser> {
   final TextEditingController _passoutYearController = TextEditingController();
   final TextEditingController _educationController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _referralId = TextEditingController();
   String? _selectedEducation = education.first;
   String? _selectedPassOutYear = years.first;
   String? profileUrl;
@@ -56,144 +60,168 @@ class _RegisterUserState extends State<RegisterUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.1, 0.6],
-              colors: [
-                Color(0xFF8AD9FF),
-                Colors.white,
-              ],
+      body: Animate(
+        effects: [SlideEffect(duration: Duration(milliseconds: 500))],
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.1, 0.6],
+                colors: [
+                  Color(0xFF8AD9FF),
+                  Colors.white,
+                ],
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    heading(32, "Complete your profile ", FontWeight.w700),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    heading(24, "Activate You Membership  ", FontWeight.w400),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    _selectPassportPhoto(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    tff("Name", TextInputType.name, _nameController, "Name",
-                        "Please Enter Name "),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        CustomeDropdownMenu(
-                          label: "Education",
-                          items: education,
-                          controller: _educationController,
-                          errortext: "Select Education",
-                          initialValue: education.first,
-                          onChanged: (String? value) {
-                            setState(() {
-                              _selectedEducation = value!;
-                              debugPrint(_selectedEducation);
-                            });
-                          },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      heading(32, "Complete your profile ", FontWeight.w700),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      heading(24, "Activate You Membership  ", FontWeight.w400),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      _selectPassportPhoto(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      tff("Name", TextInputType.name, _nameController, "Name",
+                          "Please Enter Name "),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          CustomeDropdownMenu(
+                            label: "Education",
+                            items: education,
+                            controller: _educationController,
+                            errortext: "Select Education",
+                            initialValue: education.first,
+                            onChanged: (String? value) {
+                              setState(() {
+                                _selectedEducation = value!;
+                                debugPrint(_selectedEducation);
+                              });
+                            },
+                          ),
+                          CustomeDropdownMenu(
+                            label: "Passout Year",
+                            items: years,
+                            controller: _passoutYearController,
+                            initialValue: years.first,
+                            errortext: "Select Year",
+                            onChanged: (String? value) {
+                              setState(() {
+                                _selectedPassOutYear = value!;
+                                debugPrint(_selectedPassOutYear);
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      tff("Email", TextInputType.emailAddress, _emailController,
+                          "Email", "Enter Correct Email "),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      tff("City", TextInputType.streetAddress, _cityController,
+                          "City", " Enter City "),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      TextFormField(
+                        controller: _referralId,
+                        style: GoogleFonts.montserrat(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(15),
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(),
+                          hintStyle: TextStyle(),
+                          label: Text(
+                            "Refferal ID ",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        CustomeDropdownMenu(
-                          label: "Passout Year",
-                          items: years,
-                          controller: _passoutYearController,
-                          initialValue: years.first,
-                          errortext: "Select Year",
-                          onChanged: (String? value) {
-                            setState(() {
-                              _selectedPassOutYear = value!;
-                              debugPrint(_selectedPassOutYear);
-                            });
-                          },
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    tff("Email", TextInputType.emailAddress, _emailController,
-                        "Email", "Enter Correct Email "),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    tff("City", TextInputType.streetAddress, _cityController,
-                        "City", " Enter City ")
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Color(0xFF3287BB),
-                    ),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15),
+                const SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Color(0xFF3287BB),
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      if (_selectedImage == null) {
-                        showDialog(
-                          context: context,
-                          builder: ((context) => AlertDialog(
-                                title: const Text("Select Profile Photo "),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Close"),
-                                  )
-                                ],
-                              )),
-                        );
-                      } else {
-                        var uuid = const Uuid().v4();
-                        uploadProfile(uuid);
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        if (_selectedImage == null) {
+                          showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                                  title: const Text("Select Profile Photo "),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Close"),
+                                    )
+                                  ],
+                                )),
+                          );
+                        } else {
+                          var uuid = const Uuid().v4();
+                          uploadProfile(uuid);
+                        }
                       }
-                    }
-                  },
-                  child: const Text(
-                    " Submit ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
+                    },
+                    child: const Text(
+                      " Submit ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -305,6 +333,26 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   Future<void> uploadData(String url, String uuid) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString('name', _nameController.text);
+    _prefs.setString('uuid', uuid);
+    _prefs.setString('phone', phoneNum);
+    _prefs.setString('profileUrl', url);
+    QuerySnapshot snapshotS = await FirebaseFirestore.instance
+        .collection('users')
+        .where('uuid', isEqualTo: _referralId.text)
+        .get();
+    var userDocId = snapshotS.docs[0].id;
+    print(userDocId);
+    var collection =
+        FirebaseFirestore.instance.collection('users').doc(userDocId);
+    var data = await collection.get();
+    FirebaseFirestore.instance.collection('users/$userDocId/refferedTo').add({
+      'uuid': uuid,
+      'name': _nameController.text,
+      'phone': phoneNum,
+    });
+    print(data.data());
     FirebaseFirestore.instance.collection('users').add({
       'name': _nameController.text,
       'education': _selectedEducation,
@@ -313,7 +361,8 @@ class _RegisterUserState extends State<RegisterUser> {
       'city': _cityController.text,
       'phone': phoneNum,
       'profileUrl': url,
-      'uuid': uuid
+      'uuid': uuid,
+      'refferedBy': _referralId.text,
     });
     Navigator.pop(context);
     Navigator.push(

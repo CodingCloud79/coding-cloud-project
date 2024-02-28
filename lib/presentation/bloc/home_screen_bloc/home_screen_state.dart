@@ -22,8 +22,11 @@ class NavigateToEarnTabState extends HomeScreenActionState {}
 class NavigateToMyContactsTabState extends HomeScreenActionState {}
 
 class NavigateToWithdrawlsState extends HomeScreenActionState {}
+
 class NavigateToRewardPointsState extends HomeScreenActionState {}
 
 class NavigateToPrivacyPolicyState extends HomeScreenActionState {}
 
-class NavigateToMyProfileTabState extends HomeScreenActionState {}
+class NavigateToMyCoursesState extends HomeScreenActionState {}
+
+class NavigateToMyProfileState extends HomeScreenActionState {}

@@ -17,4 +17,6 @@ class NavigateToRewardPointsEvent extends HomeScreenEvent {}
 
 class NavigateToWithdrawlsEvent extends HomeScreenEvent {}
 
+class NavigateToMyCoursesEvent extends HomeScreenEvent {}
+
 class NavigateToPrivacyPolicyEvent extends HomeScreenEvent {}
