@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -12,6 +14,7 @@ class HomeTabWidget extends StatefulWidget {
 
 class _HomeTabWidgetState extends State<HomeTabWidget> {
   late final String? uuid;
+  late final String? refferID;
   @override
   void initState() {
     getData();
@@ -33,6 +36,7 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
   }
 
   Widget _buildCarousel() {
+  
     List<String> list = ['Item 1', 'Item 2', 'Item 3']; // Your list of items
     return Animate(
       effects: [FadeEffect()],
@@ -71,14 +75,15 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
         children: [
           GestureDetector(
             onTap: () {
-              Share.share("Refer to your Friend $uuid\n", subject: "Referral");
+              Share.share("Refer to your Friend $refferID\n", subject: "Referral");
             },
             child: _buildCard("Refer Friends"),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+             
+            },
             child: _buildCard("My Earning"),
-            
           ),
           GestureDetector(
             onTap: () {
@@ -145,7 +150,6 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.grey[200],
-        
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,8 +194,7 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     setState(() {
       uuid = _prefs.getString('uuid');
+      refferID = _prefs.getString('refferID');
     });
   }
 }
-
-

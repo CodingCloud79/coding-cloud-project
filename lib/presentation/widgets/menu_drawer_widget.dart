@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/presentation/page/enter_phone_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +32,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
   int tabindex = 0;
   Widget _listTile(Icon icon, String label, VoidCallback onTap) {
     return ListTile(
-      selectedColor: Color(0xFF629AB5),
+      selectedColor: const Color(0xFF629AB5),
       title: Row(children: [
         icon,
         const SizedBox(
@@ -43,6 +45,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
   }
 
   HomeScreenBloc _homeScreenBloc = HomeScreenBloc();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +59,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
         listener: (context, state) {
           if (state is NavigateToPrivacyPolicyState) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                MaterialPageRoute(builder: (context) => const PrivacyPolicy()));
           } else if (state is NavigateToMyProfileState) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MyProfile()));
+            
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyProfile()));
           } else if (state is HomeScreenLogoutState) {
             showDialog<String>(
               context: context,
@@ -93,66 +101,46 @@ class _MenuDrawerState extends State<MenuDrawer> {
         builder: (context, state) {
           return ListView(
             children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(color: Color(0xFF3A5B6B)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(
+                height: 140,
+                child: Stack(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 70,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(48),
+                    Container(
+                      width: double.infinity,
+                      height: 70,
+                      color: const Color(0xFF8AD9FF),
+                    ),
+                    Positioned(
+                      bottom: 20,
+                      right: 105,
+                      left: 105,
+                      child: Container(
+                        height: 90,
+                        width: 90,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(52),
+                          color: Colors.white,
+                          border: Border.all(
+                            width: 4,
+                            strokeAlign: BorderSide.strokeAlignOutside,
                             color: Colors.white,
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.white,
-                            ),
                           ),
-                          child: widget.profileUrl == null
-                              ? const Icon(
-                                  Icons.person,
-                                  size: 64,
-                                  color: Colors.grey,
-                                )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.circular(40),
-                                  child: Image.network(
-                                    widget.profileUrl!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        widget.name!,
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.montserrat(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                        child: widget.profileUrl == null
+                            ? const Icon(
+                                Icons.person,
+                                size: 76,
+                                color: Colors.grey,
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  widget.profileUrl!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        "+91 ${widget.phone} ",
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.montserrat(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -218,4 +206,6 @@ class _MenuDrawerState extends State<MenuDrawer> {
       ),
     );
   }
+  
+
 }
