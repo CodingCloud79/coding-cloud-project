@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_application_1/presentation/widgets/home_screen_widgets/carousel_widget.dart';
+import 'package:flutter_application_1/presentation/widgets/home_screen_widgets/top_contributor_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,46 +28,15 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildCarousel(),
+          CarouselWidget(),
           _buildActionRow(),
           _buildQuizSection(),
-          _buildContributorSection(),
+          TopContributorWidget()
         ],
       ),
     );
   }
 
-  Widget _buildCarousel() {
-  
-    List<String> list = ['Item 1', 'Item 2', 'Item 3']; // Your list of items
-    return Animate(
-      effects: [FadeEffect()],
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        child: CarouselSlider(
-          options: CarouselOptions(
-            autoPlay: true,
-            aspectRatio: 18 / 9,
-            viewportFraction: 1,
-          ),
-          items: list
-              .map(
-                (item) => Container(
-                  margin: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(item),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-      ),
-    );
-  }
 
   Widget _buildActionRow() {
     return Container(
@@ -143,52 +114,52 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
     );
   }
 
-  Widget _buildContributorSection() {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[200],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Top Contributor",
-            style: GoogleFonts.montserrat(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Row(
-            children: [
-              _buildContributor(),
-              _buildContributor(),
-              _buildContributor(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildContributorSection() {
+  //   return Container(
+  //     margin: const EdgeInsets.all(10),
+  //     padding: const EdgeInsets.all(10),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(10),
+  //       color: Colors.grey[200],
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text( 
+  //           "Top Contributor",
+  //           style: GoogleFonts.montserrat(
+  //             fontSize: 25,
+  //             fontWeight: FontWeight.w600,
+  //           ),
+  //         ),
+  //         Row(
+  //           children: [
+  //             _buildContributor(),
+  //             _buildContributor(),
+  //             _buildContributor(),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _buildContributor() {
-    return Container(
-      height: 60,
-      width: 60,
-      margin: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Colors.grey[400],
-        borderRadius: BorderRadius.circular(32),
-      ),
-      child: const Icon(
-        Icons.person,
-        size: 48,
-        color: Colors.grey,
-      ),
-    );
-  }
+  // Widget _buildContributor() {
+  //   return Container(
+  //     height: 60,
+  //     width: 60,
+  //     margin: const EdgeInsets.all(5),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey[400],
+  //       borderRadius: BorderRadius.circular(32),
+  //     ),
+  //     child: const Icon(
+  //       Icons.person,
+  //       size: 48,
+  //       color: Colors.grey,
+  //     ),
+  //   );
+  // }
 
   Future<void> getData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
