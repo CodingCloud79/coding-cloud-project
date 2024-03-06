@@ -159,6 +159,14 @@ class _MyProfileState extends State<MyProfile> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 infoWidget("Refferal ID  ", profileData['refferalID'] ?? " "),
+                infoWidget("City  ", profileData['city'] ?? " "),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                infoWidget("State  ", profileData['state'] ?? " "),
+                infoWidget("Address", profileData['address'] ?? " "),
               ],
             ),
           ],
