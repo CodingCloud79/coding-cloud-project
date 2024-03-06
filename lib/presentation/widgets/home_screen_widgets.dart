@@ -45,7 +45,8 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+
               Share.share("Refer to your Friend $refferID\n", subject: "Referral");
             },
             child: _buildCard("Refer Friends"),

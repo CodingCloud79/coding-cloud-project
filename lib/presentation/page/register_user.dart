@@ -401,8 +401,10 @@ class _RegisterUserState extends State<RegisterUser> {
       });
       print(data.data());
     }
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('users');
 
-    FirebaseFirestore.instance.collection('users').add({
+    DocumentReference documentReference = await collectionReference.add({
       'name': _nameController.text,
       'education': _selectedEducation,
       'passoutYear': _selectedPassOutYear,
@@ -417,6 +419,9 @@ class _RegisterUserState extends State<RegisterUser> {
       'refferedBy': _referralId.text,
       'password': _passwordController.text,
     });
+    String userDocId = documentReference.id;
+    _prefs.setString('userDocId', userDocId);
+    print(userDocId);
     Navigator.pop(context);
     Navigator.push(
       context,

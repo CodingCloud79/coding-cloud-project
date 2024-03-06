@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/presentation/bloc/my_profile_bloc/my_profile_bloc.dart';
 import 'package:flutter_application_1/presentation/page/enter_phone_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,6 +46,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
   }
 
   HomeScreenBloc _homeScreenBloc = HomeScreenBloc();
+  MyProfileBloc _myProfileBloc = MyProfileBloc();
   @override
   void initState() {
     // TODO: implement initState
@@ -61,9 +63,8 @@ class _MenuDrawerState extends State<MenuDrawer> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const PrivacyPolicy()));
           } else if (state is NavigateToMyProfileState) {
-            
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MyProfile()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MyProfile()));
           } else if (state is HomeScreenLogoutState) {
             showDialog<String>(
               context: context,
@@ -132,11 +133,24 @@ class _MenuDrawerState extends State<MenuDrawer> {
                                 size: 76,
                                 color: Colors.grey,
                               )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  widget.profileUrl!,
-                                  fit: BoxFit.cover,
+                            : GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const MyProfile(),
+                                    ),
+                                  );
+                                },
+                                child: Hero(
+                                  tag: 'profileImage',
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.network(
+                                      widget.profileUrl!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
                       ),
@@ -155,6 +169,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               _listTile(const Icon(Icons.person_outline), "My Profile", () {
                 debugPrint("Drawer : My Profile ");
                 _homeScreenBloc.add(NavigateToMyProfileEvent());
+                // _myProfileBloc.add(LoadMyProfileEvent());
                 _homeScreenBloc.add(DrawerTabChangeEvent(tabIndex: 1));
               }),
               _listTile(const Icon(Icons.contacts_outlined), "My Connects", () {
@@ -171,7 +186,6 @@ class _MenuDrawerState extends State<MenuDrawer> {
                     .add(TabChangeEvent(tabIndex: 2));
                 _homeScreenBloc.add(NavigateToRewardPointsEvent());
                 _homeScreenBloc.add(DrawerTabChangeEvent(tabIndex: 3));
-
                 Navigator.pop(context);
               }),
               _listTile(const Icon(Icons.payments_outlined), "Withdrawls", () {
@@ -206,6 +220,4 @@ class _MenuDrawerState extends State<MenuDrawer> {
       ),
     );
   }
-  
-
 }

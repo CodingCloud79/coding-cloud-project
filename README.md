@@ -37,3 +37,10 @@ Payout Structure
 
 Payouts can be made weekly, monthly, or based on a specific schedule.
 Minimum payout threshold to receive earnings.
+
+
+Users
+Top Contributodr
+Courtses
+quizes
+slider images

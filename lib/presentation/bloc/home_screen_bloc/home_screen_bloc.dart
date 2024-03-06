@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -9,6 +11,7 @@ part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(HomeScreenInitialState()) {
+    on<HomeScreenLoadedEvent>(homeScreenLoadedEvent);
     on<NavigateToHomeTabEvent>(navigateToHomeTabEvent);
     on<NavigateToLearnTabEvent>(navigateToLearnTabEvent);
     on<NavigateToEarnTabEvent>(navigateToEarnTabEvent);
@@ -93,5 +96,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       emit(DrawerTabChangeState(tabIndex: event.tabIndex));
       debugPrint("${event.tabIndex}");
     }
+  }
+
+  FutureOr<void> homeScreenLoadedEvent(HomeScreenLoadedEvent event, Emitter<HomeScreenState> emit) {
+  //  emit(HomeScreenLoadedState(quiz));
+  //  FirebaseFirestore 
   }
 }
