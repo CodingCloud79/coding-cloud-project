@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/page/splash_screen.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   HttpOverrides.global = MyHttpOverrides();
-
+  HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor:const Color(0xFF3287BB)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF3287BB),
+        ),
         useMaterial3: true,
       ),
       home: const SplshScreen(),
@@ -39,4 +41,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-

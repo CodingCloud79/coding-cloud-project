@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/presentation/page/activate_membership.dart';
@@ -30,6 +31,24 @@ final List<String> education = [
   "MBA",
   "M.Tech",
 ];
+String generateRandomCode() {
+  Random random = Random();
+  String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  String code = "";
+
+  // Generate 3 random alphabets
+  for (int i = 0; i < 3; i++) {
+    code += alphabet[random.nextInt(alphabet.length)];
+  }
+
+  // Generate 3 random numbers
+  for (int i = 0; i < 3; i++) {
+    code += random.nextInt(10).toString();
+  }
+
+  return code;
+}
+
 List<String> years = List.generate(25, (index) => (2000 + index).toString());
 bool uploading = false;
 
@@ -48,12 +67,14 @@ class _RegisterUserState extends State<RegisterUser> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passoutYearController = TextEditingController();
   final TextEditingController _educationController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _referralId = TextEditingController();
-  final TextEditingController _passwordController= TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String? _selectedEducation = education.first;
   String? _selectedPassOutYear = years.first;
   String? profileUrl;
@@ -62,7 +83,7 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Animate(
-        effects: [SlideEffect(duration: Duration(milliseconds: 500))],
+        effects: [const SlideEffect(duration: Duration(milliseconds: 500))],
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -87,24 +108,21 @@ class _RegisterUserState extends State<RegisterUser> {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
                       heading(32, "Complete your profile ", FontWeight.w700),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       heading(24, "Activate You Membership  ", FontWeight.w400),
                       const SizedBox(
                         height: 10,
                       ),
                       _selectPassportPhoto(),
                       const SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       tff("Name", TextInputType.name, _nameController, "Name",
                           "Please Enter Name "),
                       const SizedBox(
-                        height: 15,
+                        height: 12,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,38 +157,47 @@ class _RegisterUserState extends State<RegisterUser> {
                         ],
                       ),
                       const SizedBox(
-                        height: 15,
+                        height: 12,
                       ),
                       tff("Email", TextInputType.emailAddress, _emailController,
                           "Email", "Enter Correct Email "),
                       const SizedBox(
-                        height: 15,
+                        height: 12,
                       ),
                       tff("City", TextInputType.streetAddress, _cityController,
                           "City", " Enter City "),
                       const SizedBox(
-                        height: 15,
+                        height: 12,
                       ),
-                      tff("Password", TextInputType.visiblePassword, _passwordController,
-                          "Password", " Enter password "),
+                      tff("State", TextInputType.streetAddress,
+                          _stateController, "State", " Enter State "),
                       const SizedBox(
-                        height: 15,
+                        height: 12,
+                      ),
+                      tff("Address", TextInputType.streetAddress,
+                          _addressController, "Address", " Enter Address "),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      tff("Password", TextInputType.visiblePassword,
+                          _passwordController, "Password", " Enter password "),
+                      const SizedBox(
+                        height: 12,
                       ),
                       TextFormField(
                         controller: _referralId,
                         style: GoogleFonts.montserrat(
                             fontSize: 18, fontWeight: FontWeight.w500),
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.all(15),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(),
-                          hintStyle: TextStyle(),
+                          border: const OutlineInputBorder(),
+                          hintStyle: const TextStyle(),
                           label: Text(
                             "Refferal ID ",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                            style: GoogleFonts.montserrat(
+                                fontSize: 15, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -178,20 +205,20 @@ class _RegisterUserState extends State<RegisterUser> {
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 60,
+                  height: 50,
                   child: ElevatedButton(
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
-                        Color(0xFF3287BB),
+                        Color.fromARGB(255, 111, 171, 199),
                       ),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(15),
+                            Radius.circular(10),
                           ),
                         ),
                       ),
@@ -213,15 +240,17 @@ class _RegisterUserState extends State<RegisterUser> {
                           );
                         } else {
                           var uuid = const Uuid().v4();
-                          uploadProfile(uuid);
+                          var refferId = generateRandomCode();
+                          uploadProfile(uuid, refferId);
                         }
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       " Submit ",
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: GoogleFonts.montserrat(
                         fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -317,7 +346,7 @@ class _RegisterUserState extends State<RegisterUser> {
     });
   }
 
-  Future<void> uploadProfile(String uuid) async {
+  Future<void> uploadProfile(String uuid, String refferId) async {
     try {
       setState(() {
         uploading = true;
@@ -332,20 +361,22 @@ class _RegisterUserState extends State<RegisterUser> {
         uploading = false;
       });
       debugPrint("Download URL: $downloadURL");
-      uploadData(downloadURL, uuid);
+      uploadData(downloadURL, uuid, refferId);
     } catch (error) {
       debugPrint("Firebase Storage Error: $error");
     }
   }
 
-  Future<void> uploadData(String url, String uuid) async {
+  Future<void> uploadData(String url, String uuid, String refferId) async {
     // Setting Shared Preferences
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     _prefs.setString('name', _nameController.text);
     _prefs.setString('uuid', uuid);
+    _prefs.setString('refferID', refferId);
     _prefs.setString('phone', phoneNum);
     _prefs.setString('profileUrl', url);
     _prefs.setBool('loggedIn', true);
+
     debugPrint("Logged In");
 
     if (_referralId.text == "") {
@@ -354,7 +385,7 @@ class _RegisterUserState extends State<RegisterUser> {
       // Getting the Document id of user who's refferal code is entered
       QuerySnapshot snapshotS = await FirebaseFirestore.instance
           .collection('users')
-          .where('uuid', isEqualTo: _referralId.text)
+          .where('refferalID', isEqualTo: _referralId.text)
           .get();
       var userDocId = snapshotS.docs[0].id;
       print(userDocId);
@@ -370,19 +401,27 @@ class _RegisterUserState extends State<RegisterUser> {
       });
       print(data.data());
     }
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('users');
 
-    FirebaseFirestore.instance.collection('users').add({
+    DocumentReference documentReference = await collectionReference.add({
       'name': _nameController.text,
       'education': _selectedEducation,
       'passoutYear': _selectedPassOutYear,
       'email': _emailController.text,
       'city': _cityController.text,
+      'state': _stateController.text,
+      'address': _addressController.text,
       'phone': phoneNum,
       'profileUrl': url,
       'uuid': uuid,
+      'refferalID': refferId,
       'refferedBy': _referralId.text,
       'password': _passwordController.text,
     });
+    String userDocId = documentReference.id;
+    _prefs.setString('userDocId', userDocId);
+    print(userDocId);
     Navigator.pop(context);
     Navigator.push(
       context,

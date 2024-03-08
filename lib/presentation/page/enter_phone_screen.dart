@@ -87,6 +87,10 @@ class _PhoneScreenState extends State<PhoneScreen> {
                           keyboardType: TextInputType.phone,
                           maxLength: 10,
                           controller: _phoneController,
+                          enableSuggestions: true,
+                          autofillHints:const [
+                            AutofillHints.telephoneNumber,
+                          ],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter Phone Number';
@@ -215,6 +219,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
           setState(() {
             isLoading = false;
           });
+
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -232,6 +237,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
               ],
             ),
           );
+          throw (error);
         },
         codeSent: (String verificationId, int? forceResendingToken) {
           debugPrint(" Code Received ");

@@ -5,8 +5,6 @@ import 'package:flutter_application_1/presentation/page/tabs/home_screen_tab.dar
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widgets/register_screen_widgets.dart';
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -64,6 +62,10 @@ class _LoginState extends State<Login> {
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
+                enableSuggestions: true,
+                autofillHints: const [
+                  AutofillHints.telephoneNumber,
+                ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Enter Phone Number';
@@ -229,6 +231,7 @@ class _LoginState extends State<Login> {
           await prefs.setString('name', data['name']);
           await prefs.setString('phone', data['phone']);
           await prefs.setString('profileUrl', data['profileUrl']);
+          await prefs.setString('refferID', data['refferalID']);
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.push(

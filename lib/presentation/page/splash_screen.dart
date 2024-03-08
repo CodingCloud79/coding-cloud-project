@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/page/enter_phone_screen.dart';
+import 'package:flutter_application_1/presentation/page/register_user.dart';
 import 'package:flutter_application_1/presentation/page/tabs/home_screen_tab.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +29,7 @@ class _SplshScreenState extends State<SplshScreen> {
           PageRouteBuilder(
             pageBuilder: (_, __, ___) =>
                 loggedIn ? const HomeScreen() : const PhoneScreen(),
+                // loggedIn ? const RegisterUser(phoneNumber: '',) : const PhoneScreen(),
             transitionDuration: const Duration(milliseconds: 1500),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),

@@ -27,10 +27,11 @@ class CustomeDropdownMenu extends StatelessWidget {
         menuMaxHeight: 200,
         hint: Text(
           label,
-          style: const TextStyle(fontSize: 20),
+          style:
+              GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w500),
         ),
         decoration: const InputDecoration(
-          contentPadding: EdgeInsets.only(left: 12, top: 10),
+          contentPadding: EdgeInsets.only(left: 12, top: 3),
           fillColor: Colors.white,
           border: OutlineInputBorder(),
           filled: true,
@@ -45,7 +46,11 @@ class CustomeDropdownMenu extends StatelessWidget {
         items: items.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value),
+            child: Text(
+              value,
+              style: GoogleFonts.montserrat(
+                  fontSize: 15, fontWeight: FontWeight.w500),
+            ),
           );
         }).toList(),
         onChanged: onChanged,
@@ -63,7 +68,6 @@ bool isValidName(String name) {
   final nameRegex = RegExp(r"^[a-zA-Z]+(([',\.\-\s][a-zA-Z ])?[a-zA-Z]*)*$");
   return nameRegex.hasMatch(name);
 }
-
 
 Widget tff(
   String hinttext,
@@ -95,22 +99,20 @@ Widget tff(
             return " Name Should Contain Alphabets Only ";
           }
         }
-        
       }
       return null;
     },
     style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w500),
     decoration: InputDecoration(
-      contentPadding: const EdgeInsets.all(15),
+      contentPadding: const EdgeInsets.all(10),
       fillColor: Colors.white,
       filled: true,
       border: const OutlineInputBorder(),
       hintStyle: const TextStyle(),
       label: Text(
         label,
-        style: const TextStyle(
-          fontSize: 20,
-        ),
+        style:
+            GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w500),
       ),
     ),
   );

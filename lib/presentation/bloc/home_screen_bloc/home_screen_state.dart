@@ -14,7 +14,16 @@ class HomeScreenInitialState extends HomeScreenState {}
 
 class HomeScreenLoadingState extends HomeScreenState {}
 
-class HomeScreenLoadedState extends HomeScreenState {}
+class HomeScreenLoadedState extends HomeScreenState {
+  final List topContributors;
+  final List quiz;
+  final List carousel;
+  HomeScreenLoadedState({
+    required this.topContributors,
+    required this.carousel,
+    required this.quiz,
+  });
+}
 
 class HomeScreenErrorState extends HomeScreenState {}
 
