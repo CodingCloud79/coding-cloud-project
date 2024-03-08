@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -96,11 +98,17 @@ class _TopContributorWidgetState extends State<TopContributorWidget> {
                   borderRadius: BorderRadius.circular(70),
                   child: Animate(
                     effects: [ScaleEffect(), RotateEffect(), FadeEffect()],
-                    child: Image.network(
-                      user['profileUrl'],
-                      fit: BoxFit.cover,
-                      width: 64,
-                      height: 64,
+                    child: GestureDetector(
+                      onTap: (){
+                        log(user['name'],);
+                      },
+                      child: Image.network(
+                        user['profileUrl'],
+                        fit: BoxFit.cover,
+                        width: 64,
+                        height: 64,
+                        filterQuality: FilterQuality.medium,
+                      ),
                     ),
                   ),
                 ),

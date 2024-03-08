@@ -231,6 +231,7 @@ class _LoginState extends State<Login> {
           await prefs.setString('name', data['name']);
           await prefs.setString('phone', data['phone']);
           await prefs.setString('profileUrl', data['profileUrl']);
+          await prefs.setString('refferID', data['refferalID']);
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.push(

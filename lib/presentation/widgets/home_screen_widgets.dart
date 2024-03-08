@@ -46,7 +46,8 @@ class _HomeTabWidgetState extends State<HomeTabWidget> {
         children: [
           GestureDetector(
             onTap: () async {
-
+              SharedPreferences _prefs =await SharedPreferences.getInstance();
+              debugPrint(_prefs.getString('refferID'));
               Share.share("Refer to your Friend $refferID\n", subject: "Referral");
             },
             child: _buildCard("Refer Friends"),

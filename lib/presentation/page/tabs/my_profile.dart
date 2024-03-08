@@ -28,12 +28,7 @@ class _MyProfileState extends State<MyProfile> {
   void initState() {
     super.initState();
     getUUID();
-    // _myProfileBloc.add(MyProfileInitial());
-    // profileStream = FirebaseFirestore.instance
-    //     .collection('users')
-    //     .where('uuid', isEqualTo: uUid)
-    //     .snapshots()
-    //     .map((querySnapshot) => querySnapshot.docs.first);
+  
   }
 
   @override
@@ -54,16 +49,16 @@ class _MyProfileState extends State<MyProfile> {
                           size: 400,
                         )
                       : 
-                      // Animate(
-                      //     effects: const [
-                      //       MoveEffect(
-                      //         begin: Offset(0, -50),
-                      //         end: Offset(0, 0),
-                      //         duration: Duration(milliseconds: 500)
-                      //       ),
-                      //       FadeEffect(duration: Duration(milliseconds: 500))
-                      //     ],
-                      //     child: 
+                      Animate(
+                          effects: const [
+                            MoveEffect(
+                              begin: Offset(0, -50),
+                              end: Offset(0, 0),
+                              duration: Duration(milliseconds: 500)
+                            ),
+                            FadeEffect(duration: Duration(milliseconds: 500))
+                          ],
+                          child: 
                            Hero(
                             tag: 'profileImage',
                             child: Image.network(
@@ -73,7 +68,7 @@ class _MyProfileState extends State<MyProfile> {
                               alignment: Alignment.center,
                             ),
                           ),
-                        // ),
+                        ),
                 ),
                 GestureDetector(
                   onTap: () {
